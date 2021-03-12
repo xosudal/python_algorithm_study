@@ -1,3 +1,4 @@
+# page 96
 n, m = list(map(int, input().split()))
 
 result = 0
