@@ -7,10 +7,12 @@ graph = []
 for i in range(n):
     graph.append(list(map(int, input())))
 
+result = []
+
 
 def dfs(x, y, dist):
     if x == n-1 and y == m-1:
-        print("arrived")
+        result.append(dist + 1)
         return
 
     if x < 0 or x >= n or y < 0 or y >= m:
@@ -27,7 +29,6 @@ def dfs(x, y, dist):
         dfs(x, y - 1, graph[x][y])
 
 
-dfs(0, 0, graph[0][0])
+dfs(0, 0, 0)
 
-for i in range(n):
-    print(graph[i])
+print(min(result))
