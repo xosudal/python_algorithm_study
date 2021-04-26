@@ -9,7 +9,7 @@ for i in range(N):
         stack.pop()
         cnt += 1
         print("after pop ", stack, "cnt : ", cnt)
-    if stack:
+    if stack: # !stack.isEmpty()
         if stack[-1] == ANT[i]:
             stack.pop()
         cnt += 1

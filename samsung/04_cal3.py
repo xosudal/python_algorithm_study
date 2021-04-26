@@ -12,8 +12,12 @@ for test_case in range(1, T + 1):
         if '0' <= s <= '9':
             result.append(s)
         else:
-            if not stack:
+            if not stack or s == '(':
                 stack.append(s)
+            elif s == ')':
+                while stack[-1] != '(':
+                    result.append(stack.pop())
+                stack.pop()
             else:
                 if s == '+':
                     while stack and stack[-1] == '*':

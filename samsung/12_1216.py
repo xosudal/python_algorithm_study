@@ -4,7 +4,6 @@ sys.stdin = open("input.txt", "r")
 
 T = 10
 
-
 def check(_str):
     _len = len(_str)
     for i in range(0, int(_len / 2)):
@@ -15,23 +14,18 @@ def check(_str):
 
 for test_case in range(1, T + 1):
     cnt = 0
-    _len = int(input())
+    tc = int(input())
     graph = list()
     for _ in range(100):
-        graph.append(list(map(str, input())))
+        graph.append(list(input()))
+    graph2 = list(map(list, zip(*graph)))
+    ans = 0
+    for _len in range(100):
+        for i in range(100):
+            for j in range(100-_len+1):
+                if check(graph[i][j:j+_len]):
+                    ans = _len
+                if check(graph2[i][j:j+_len]):
+                    ans = _len
 
-    for i in range(100):
-        for j in range(100-_len+1):
-            row = ""
-            col = ""
-            for k in range(j, j+_len):
-                row += graph[i][k]
-                #print(k, i)
-                col += graph[k][i]
-            if check(row):
-                cnt += 1
-            if check(col):
-                cnt += 1
-
-    print("#" + str(test_case) + " ", end='')
-    print(cnt)
+    print(f"#{tc} {ans}")
