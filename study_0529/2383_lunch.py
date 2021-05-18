@@ -22,8 +22,8 @@ def move():
     second_group = [[i, abs(second[i][0]-E[1][0])+abs(second[i][1]-E[1][1]), 0] for i in range(len(second))]
     first_group.sort(key=lambda k: k[1])
     second_group.sort(key=lambda k: k[1])
-    # first_group = deque(first_group)
-    # second_group = deque(second_group)
+    first_wait = []
+    second_wait = []
     time = 0
     complete = []
     first_stair = []
@@ -41,6 +41,13 @@ def move():
                 if f[2] == E[0][2] + 1:
                     first_stair.remove(f)
                     complete.append(f)
+            if first_wait:
+                for w in first_wait[:]:
+                    if len(first_stair) < 3:
+                        first_wait.remove(w)
+                        t = w
+                        t[2] += 1
+                        first_stair.append(t)
 
         if second_stair:
             for f in second_stair:
@@ -49,30 +56,34 @@ def move():
                 if f[2] == E[1][2] + 1:
                     second_stair.remove(f)
                     complete.append(f)
+
+        if second_wait:
+            for w in second_wait[:]:
+                if len(second_stair) < 3:
+                    second_wait.remove(w)
+                    t = w
+                    t[2] += 1
+                    second_stair.append(t)
+
         print("first stair :", first_stair)
         print("second stair :", second_stair)
         if first_group:
             for f in first_group[:]:
-                if f[1] <= time and len(first_stair) < 3:
-                    first_stair.append(f)
+                if f[1] == time:
+                    if len(first_stair) < 3:
+                        first_stair.append(f)
+                    elif len(first_stair) >= 3:
+                        first_wait.append(f)
                     first_group.remove(f)
 
         if second_group:
             for f in second_group[:]:
-                if f[1] <= time and len(second_stair) < 3:
-                    second_stair.append(f)
+                if f[1] == time:
+                    if len(second_stair) < 3:
+                        second_stair.append(f)
+                    elif len(second_stair) >= 3:
+                        second_wait.append(f)
                     second_group.remove(f)
-        # while first_group:
-        #     if first_group[0][1] <= time and len(first_stair) < 3:
-        #         first_stair.append(first_group.popleft())
-        #     else:
-        #         break
-        #
-        # while second_group:
-        #     if second_group[0][1] <= time and len(second_stair) < 3:
-        #         second_stair.append(second_group.popleft())
-        #     else:
-        #         break
     return time
 
 
